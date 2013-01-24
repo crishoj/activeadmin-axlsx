@@ -41,6 +41,21 @@ describe ActiveAdmin::ResourceController do
       controller.request.accept = 'text/html'
       controller.send(:per_page).should == ActiveAdmin.application.default_per_page
     end
+
+    context 'when making a subsequent request' do
+      before :all do
+        controller.send :index
+        @first_size = response.body.size
+        controller.response_body = nil # to avoid DoubleRenderError
+      end
+
+      it 'produces a file of the same size as the first request' do
+        controller.send :index
+        response.body.size.should == @first_size
+      end
+
+    end
+
   end
 end
 
