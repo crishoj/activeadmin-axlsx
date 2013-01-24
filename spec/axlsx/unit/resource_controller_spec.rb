@@ -27,7 +27,7 @@ describe ActiveAdmin::ResourceController do
 
 
   context 'when making requests with the xlsx mime type' do
-     it 'returns xlsx attachment when requested' do
+    it 'returns xlsx attachment when requested' do
       controller.send :index
       response.headers["Content-Disposition"].should == "attachment; filename=\"#{filename}\""
       response.headers["Content-Transfer-Encoding"].should == 'binary'
